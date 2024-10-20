@@ -62,3 +62,43 @@ The application supports authentication to ensure that only authorized users can
 - **Backend**: ASP.NET Core MVC
 - **Frontend**: HTML, CSS, Bootstrap
 - **Database**: Entity Framework Core with SQL Server
+
+---
+
+## Setup and Run the Project
+
+### Prerequisites
+
+Before running the project, ensure you have the following tools installed:
+
+1. **.NET 6 SDK or later**
+   - Download from [Microsoft .NET](https://dotnet.microsoft.com/download/dotnet/6.0).
+   - Check if it's installed by running the following command:
+     ```bash
+     dotnet --version
+     ```
+
+2. **Entity Framework Core CLI**
+   - Install EF Core CLI globally using the following command:
+     ```bash
+     dotnet tool install --global dotnet-ef
+     ```
+
+3. **SQL Server** 
+   - Make sure SQL Server is installed or use SQL Server Express.
+   - Update the connection string in `appsettings.json` to point to your database.
+
+4. **Visual Studio 2022** (Recommended)
+   - Download from [Visual Studio](https://visualstudio.microsoft.com/).
+   - Ensure ASP.NET and web development workloads are installed.
+
+---
+
+### Steps to Set Up the Project
+
+#### 1. Clone the Repository
+
+Clone the repository from GitHub:
+
+```bash
+git clone https://github.com/your-username/TaskManagementSystem.git
