@@ -1,0 +1,52 @@
+﻿@model TaskMangementSystem.Models.ProjectModel
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+<br />
+<h2 class="text-black" style="padding: 10px; border-radius: 5px;">Create Project</h2>
+
+<div class="container mt-4">
+    <form asp-action="CreateProject" method="post" class="bg-light p-4 rounded shadow-sm">
+        
+        <div class="form-group">
+            <label asp-for="ProjectName" class="font-weight-bold"></label>
+            <input asp-for="ProjectName" class="form-control" placeholder="Enter project name" />
+            <span asp-validation-for="ProjectName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="font-weight-bold"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="Enter project description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StartDate" class="font-weight-bold"></label>
+            <input asp-for="StartDate" class="form-control" type="date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EndDate" class="font-weight-bold"></label>
+            <input asp-for="EndDate" class="form-control" type="date" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <!-- Display the error message if the dates are invalid -->
+        @if (ViewData["DateError"] != null)
+        {
+            <p class="text-danger">@ViewData["DateError"]</p>
+        }
+
+        <button type="submit" class="btn btn-primary">Create Project</button>
+    </form>
+
+    <div class="mt-3">
+        <a asp-controller="Project" asp-action="UserProjects" class="btn btn-secondary">Back to Projects</a>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

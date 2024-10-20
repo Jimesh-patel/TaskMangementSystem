@@ -1,0 +1,53 @@
+﻿@model List<TaskMangementSystem.Models.ProjectModel>
+<br />
+<h2 class="text-black" style="padding: 10px; border-radius: 5px;">Your Projects</h2>
+
+<div class="row mt-4">
+    @foreach (var project in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4"
+                 style="@(project.Status == "Not Started" ? "box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);" : "")
+                       @(project.Status == "In Process" ? "box-shadow: 0 2px 4px rgba(40, 167, 69, 0.5);" : "")
+                       @(project.Status == "Missed" ? "box-shadow: 0 2px 4px rgba(220, 53, 69, 0.5);" : "")">
+                <div class="card-body position-relative">
+                    <!-- Status Icon -->
+                    <div class="position-absolute" style="top: 10px; right: 10px;">
+                        @if (project.Status == "Not Started")
+                        {
+                            <i class="fas fa-pause-circle text-primary" style="font-size: 24px;"></i>
+                        }
+                        else if (project.Status == "In Process")
+                        {
+                            <i class="fas fa-spinner fa-spin text-warning" style="font-size: 24px;"></i>
+                        }
+                        else if (project.Status == "Missed")
+                        {
+                            <i class="fas fa-exclamation-circle text-danger" style="font-size: 24px;"></i>
+                        }
+                    </div>
+
+                    <h5 class="card-title">@project.ProjectName</h5>
+                    <p class="card-text">
+                        <strong>Description: </strong>@project.Description
+                    </p>
+                    <p class="card-text">
+                        <strong>Start Date: </strong>@project.StartDate.ToShortDateString()
+                    </p>
+                    <p class="card-text">
+                        <strong>End Date: </strong>@project.EndDate.ToShortDateString()
+                    </p>
+                    <p class="card-text">
+                        <strong>Status: </strong>@project.Status
+                    </p>
+
+                    <a href="@Url.Action("ProjectDetails", "Project", new { id = project.ProjectID })" class="btn btn-primary">View Details</a>
+                    <button type="button" class="btn btn-success"
+                            onclick="location.href='@Url.Action("AddTask", "Task", new { projectId = project.ProjectID })'">
+                        Add Task
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

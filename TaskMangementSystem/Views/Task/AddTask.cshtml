@@ -1,0 +1,40 @@
+﻿@model TaskMangementSystem.Models.TaskModel
+
+<h2 class="text-black" style="padding: 10px; border-radius: 5px;">Add Task</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<div class="container mt-4">
+    <form asp-action="AddTask" method="post" class="bg-light p-4 rounded shadow-sm">
+        <input type="hidden" name="ProjectID" value="@ViewBag.ProjectID" />
+
+        <div class="form-group">
+            <label asp-for="TaskTitle" class="control-label"></label>
+            <input asp-for="TaskTitle" class="form-control" placeholder="Enter task title" />
+            <span asp-validation-for="TaskTitle" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="Enter task description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="AssignedUserEmail">Assign To (Email)</label>
+            <input type="email" name="AssignedUserEmail" class="form-control" placeholder="Enter user email" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Task</button>
+        <a href="@Url.Action("UserProjects", "Project")" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

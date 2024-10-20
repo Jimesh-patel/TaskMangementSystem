@@ -1,0 +1,61 @@
+﻿ @model IEnumerable<TaskMangementSystem.Models.TaskModel>
+
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<h1>Today work</h1>
+<p>
+    @ViewData["msg"]
+</p>
+<div class="row">
+    @foreach (var task in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card"
+                 style="@(task.Status == "Completed" ? "box-shadow: 0 2px 4px rgba(40, 167, 69, 0.5);" :
+                          task.Status == "Missed" ? "box-shadow: 0 2px 4px rgba(220, 53, 69, 0.5);" :
+                          "box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);")">
+                <div class="card-body position-relative">
+                    <!-- Status Icon -->
+                    <div class="position-absolute" style="top: 10px; right: 10px;">
+                        @if (task.Status == "Completed")
+                        {
+                            <i class="fas fa-check-circle text-success" style="font-size: 24px;"></i>
+                        }
+                        else if (task.Status == "Not Started")
+                        {
+                            <i class="fas fa-pause-circle text-primary" style="font-size: 24px;"></i>
+                        }
+                        else if (task.Status == "In Process")
+                        {
+                            <i class="fas fa-spinner fa-spin text-warning" style="font-size: 24px;"></i>
+                        }
+                        else if (task.Status == "Missed")
+                        {
+                            <i class="fas fa-exclamation-circle text-danger" style="font-size: 24px;"></i>
+                        }
+                    </div>
+
+                    <h5 class="card-title">@task.TaskTitle</h5>
+                    <p class="card-text">
+                        <strong>Description:</strong> @task.Description<br />
+                        <strong>Due Date:</strong> @task.DueDate.ToShortDateString()<br />
+                        <strong>Status:</strong> @task.Status
+                    </p>
+                    @if (task.Status != "Completed")
+                    {
+                        <form asp-action="CompleteTask" method="post">
+                            <input type="hidden" name="taskId" value="@task.TaskID" />
+                            <button type="submit" class="btn btn-success">Mark as Completed</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-success">Task Completed</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

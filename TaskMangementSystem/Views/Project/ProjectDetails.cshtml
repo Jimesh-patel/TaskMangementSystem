@@ -1,0 +1,76 @@
+﻿@model TaskMangementSystem.Models.ProjectDetailsViewModel
+
+<br />
+<h2>Project Details</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3>@Model.Project.ProjectName</h3>
+        <p>
+            <strong>Description: </strong>@Model.Project.Description<br />
+            <strong>Start Date: </strong>@Model.Project.StartDate.ToShortDateString()<br />
+            <strong>End Date: </strong>@Model.Project.EndDate.ToShortDateString()<br />
+            <strong>Status: </strong>@Model.Project.Status
+        </p>
+
+        <button type="button" class="btn btn-success"
+                onclick="location.href='@Url.Action("AddTask", "Task", new { projectId = @Model.Project.ProjectID })'">
+            Add Task
+        </button>
+    </div>
+</div>
+
+<br />
+
+<h3>Tasks</h3>
+
+@if (Model.Tasks.Any())
+{
+    <div class="row">
+        @foreach (var task in Model.Tasks)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card" style="@(task.Status == "Completed" ? "border-left: 5px solid #28a745;" :
+                                         task.Status == "Missed" ? "border-left: 5px solid #dc3545;" :
+                                         task.Status == "In Process" ? "border-left: 5px solid #ffc107;" :
+                                         "border-left: 5px solid #007bff;")">
+                    <div class="card-body">
+                        <h5 class="card-title">@task.TaskTitle</h5>
+                        <p class="card-text">
+                            <strong>Description:</strong> @task.Description<br />
+                            <strong>Due Date:</strong> @task.DueDate.ToShortDateString()<br />
+                            <strong>Assigned User:</strong> @task.AssignedUser?.Email
+                        </p>
+                        <!-- Status Icon -->
+                        <div>
+                            @if (task.Status == "Completed")
+                            {
+                                <i class="fas fa-check-circle text-success"></i>
+                                <a>Completed</a>
+                            }
+                            else if (task.Status == "Not Started")
+                            {
+                                <i class="fas fa-pause-circle text-primary"></i>
+                                <a>Not Started</a>
+                            }
+                            else if (task.Status == "In Process")
+                            {
+                                <i class="fas fa-spinner fa-spin text-warning"></i>
+                                <a>In Process </a>
+                            }
+                            else if (task.Status == "Missed")
+                            {
+                                <i class="fas fa-exclamation-circle text-danger"></i>
+                                <a>Missed</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No tasks assigned for this project yet.</p>
+}

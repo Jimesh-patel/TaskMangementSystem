@@ -1,0 +1,14 @@
+﻿/* navbar.css */
+
+.navbar-nav .nav-link {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .navbar-nav .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .navbar-nav .nav-link.active {
+        font-weight: bold;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
